@@ -3,7 +3,7 @@
  * is being asked, and counting the number of equations with at least one error.
  * FLOWCHART: https://lucid.app/lucidchart/5a3164fd-459f-494d-9cae-b4a6be593b13/view
  */
-
+var mistakes = [];
 main()
 
 /* main controls the program. Calling askFive() it provides feedback depending on the 
@@ -12,10 +12,13 @@ main()
  * @return none
  */
 function main() {
-    askFive();
     let wrong = 0;
+    wrong = askFive();
     if (wrong == 0) alert("Perfect");
-    else alert("You got" + wrong + "out of five wrong");
+    else{ 
+        alert("You got " + wrong + " out of five wrong");
+        analyzeMistakes();
+    }
 }
 
 /* askFive calls askQuestion() five times, sending the question number as an argument. 
@@ -46,6 +49,27 @@ function askQuestion(question){
         alert("Correct");
         return 0;
     }
-    else alert("Incorrect");
-    return 1;
+    else{  
+        alert("Incorrect");
+        mistakes.push(a,b);
+        console.log(mistakes.toString());
+        return 1;
+    }
+}
+
+function analyzeMistakes(){
+    let countMistakes = [];
+    let errorList = "you made these errors:\n";
+    for(let factor = 0; factor < mistakes.length; factor++){
+        countMistakes[factor]++;
+    }
+    for(let factor = 3; factor < 9; factor++){
+        if(countMistakes[factor] > 0){
+            errorList+= "factor " + factor + ":" + countMistakes[factor] + "\n";
+        }
+    }
+    alert("mistakes = " + errorList);
+
+
+
 }
