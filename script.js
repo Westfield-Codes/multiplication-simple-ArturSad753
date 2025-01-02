@@ -20,13 +20,17 @@ var mistakes = [];
  * @return none
  */
 function main() {
-    let wrong = 0;
-    wrong = askFive();
-    if (wrong == 0) alert("Perfect");
-    else{ 
-        alert("You got " + wrong + " out of five wrong");
-        analyzeMistakes();
-    }
+    let console = document.getElementById("console");
+    let question = document.createElement("div");
+    question.id = "question";
+    console.appendChild(question);
+    // let wrong = 0;
+    // wrong = askFive();
+    // if (wrong == 0) alert("Perfect");
+    // else{ 
+    //     alert("You got " + wrong + " out of five wrong");
+    //     analyzeMistakes();
+    // }
 }
 
 /* askFive calls askQuestion() five times, sending the question number as an argument. 
