@@ -1,0 +1,6 @@
+body {
+    background: lightblue;
+}
+button:hover {
+    background: lightskyblue;
+}

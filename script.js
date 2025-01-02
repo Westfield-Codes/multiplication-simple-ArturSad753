@@ -1,10 +1,18 @@
+// webapp
+function setup(){
+    let console = document.getElementById("console");
+    let button = document.createElement("button");
+    button.addEventListener("click",main);
+    button.innerHTML = "<h3> Start Multiplication </h3>";
+    console.appendChild(button);
+
+}
 /* MULTIPLICATION QUIZ
  * This program should ask five multiplication questions, displaying which question
  * is being asked, and counting the number of equations with at least one error.
  * FLOWCHART: https://lucid.app/lucidchart/5a3164fd-459f-494d-9cae-b4a6be593b13/view
  */
 var mistakes = [];
-main()
 
 /* main controls the program. Calling askFive() it provides feedback depending on the 
  * number wrong returned: 0 = "Perfect!" otherwise it says how many wrong. 
