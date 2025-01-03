@@ -4,6 +4,7 @@ function setup(){
     let button = document.createElement("button");
     button.addEventListener("click",main);
     button.innerHTML = "<h3> Start Multiplication </h3>";
+    button.id = "button";
     console.appendChild(button);
 
 }
@@ -20,9 +21,17 @@ var mistakes = [];
  * @return none
  */
 function main() {
+    let button = document.getElementById("button");
+    button.removeEventListener("click",main);
+    button.addEventListener("click",checkAnswer);
+    let answer = document.createElement("input");
+    answer.id = "answer";
     let console = document.getElementById("console");
+    console.appendChild(answer); 
+    button.innerHTML = "submit answer";
     let question = document.createElement("div");
     question.id = "question";
+    question.innerHTML = "3 * 4";
     console.appendChild(question);
     // let wrong = 0;
     // wrong = askFive();
@@ -31,6 +40,12 @@ function main() {
     //     alert("You got " + wrong + " out of five wrong");
     //     analyzeMistakes();
     // }
+}
+function checkAnswer() {
+    let answer = document.getElementById("answer").value;
+    if (answer == 12) alert("that's right");
+    else alert("Wrong");
+
 }
 
 /* askFive calls askQuestion() five times, sending the question number as an argument. 

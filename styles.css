@@ -11,4 +11,10 @@ button:hover {
     width: 200px;
     height: 100px;
     margin: auto;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 70px;
+}
+button {
+    margin: auto;
 }
