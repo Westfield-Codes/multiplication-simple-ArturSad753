@@ -23,7 +23,7 @@ var mistakes = [];
 function main() {
     let button = document.getElementById("button");
     button.removeEventListener("click",main);
-    button.addEventListener("click",checkAnswer);
+    //button.addEventListener("click",checkAnswer);
     let answer = document.createElement("input");
     answer.id = "answer";
     let console = document.getElementById("console");
@@ -31,7 +31,11 @@ function main() {
     button.innerHTML = "submit answer";
     let question = document.createElement("div");
     question.id = "question";
-    question.innerHTML = "3 * 4";
+    let factors = newFactors();
+    question.innerHTML = factors[0]+" * "+factors[1];
+    button.addEventListener("click", function(){
+        checkAnswer(factors);
+    }, false)
     console.appendChild(question);
     // let wrong = 0;
     // wrong = askFive();
@@ -41,10 +45,10 @@ function main() {
     //     analyzeMistakes();
     // }
 }
-function checkAnswer() {
+function checkAnswer(factors) {
     let answer = document.getElementById("answer").value;
-    if (answer == 12) alert("that's right");
-    else alert("Wrong");
+    if (answer == factors[0]*factors[1]) alert("that's right");
+    else alert("Wrong answer");
 
 }
 
@@ -59,6 +63,13 @@ function askFive() {
         wrong+= askQuestion(question);
     }
     return wrong;
+}
+
+function newFactors(){
+    let a = Math.floor(Math.random()*7)+3;
+    let b = Math.floor(Math.random()*7)+3;
+    let factors = [a,b];
+    return factors;
 }
 
 /* askQuestion asks a multiplication question, using the quesiton parameter to say which
