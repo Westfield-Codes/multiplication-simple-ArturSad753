@@ -31,12 +31,21 @@ function main() {
     button.innerHTML = "submit answer";
     let question = document.createElement("div");
     question.id = "question";
+    newQuestion();
+}
+function newQuestion(){
+    let question = document.getElementById("question");
     let factors = newFactors();
     question.innerHTML = factors[0]+" * "+factors[1];
     button.addEventListener("click", function(){
         checkAnswer(factors);
     }, false)
     console.appendChild(question);
+    let feedback = document.createElement("div");
+    feedback.id = "feedback";
+    feedback.innerHTML = "";
+    console.appendChild(feedback);
+}
     // let wrong = 0;
     // wrong = askFive();
     // if (wrong == 0) alert("Perfect");
@@ -44,11 +53,23 @@ function main() {
     //     alert("You got " + wrong + " out of five wrong");
     //     analyzeMistakes();
     // }
-}
+
 function checkAnswer(factors) {
     let answer = document.getElementById("answer").value;
-    if (answer == factors[0]*factors[1]) alert("that's right");
-    else alert("Wrong answer");
+    if (answer == factors[0]*factors[1]) displayFeedback("that's right");
+    else displayFeedback("Wrong answer");
+    let button = document.getElementById("button");
+    button.innerHTML = "Next question";
+    button.removeEventListener("click",function(){
+        checkAnswer(factors);
+    }, false);
+    button.addEventListener("click",newQuestion);
+    button.style.backgroundColor = "yellow";
+
+}
+function displayFeedback(message){
+    let feedback = document.getElementById("feedback");
+    feedback.innerHTML = message;
 
 }
 
