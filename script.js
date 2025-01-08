@@ -1,11 +1,11 @@
 // webapp
 function setup(){
-    let console = document.getElementById("console");
+    let gameboard = document.getElementById("gameboard");
     let button = document.createElement("button");
     button.addEventListener("click",main);
     button.innerHTML = "<h3> Start Multiplication </h3>";
     button.id = "button";
-    console.appendChild(button);
+    gameboard.appendChild(button);
 
 }
 /* MULTIPLICATION QUIZ
@@ -21,38 +21,44 @@ var mistakes = [];
  * @return none
  */
 function main() {
-    let button = document.getElementById("button");
-    button.removeEventListener("click",main);
+  
     //button.addEventListener("click",checkAnswer);
-    let answer = document.createElement("input");
-    answer.id = "answer";
-    let console = document.getElementById("console");
-    console.appendChild(answer); 
-    button.innerHTML = "submit answer";
+    let gameboard = document.getElementById("gameboard");
+    
+    // Create Question box
     let question = document.createElement("div");
     question.id = "question";
+    gameboard.appendChild(question);
+    // Create Answer input
+    let answer = document.createElement("input");
+    answer.id = "answer";
+    gameboard.appendChild(answer);
+    // Create button
+    let button = document.getElementById("button");
+    button.removeEventListener("click",main);
+    button.innerHTML = "submit answer";
+    gameboard.appendChild(button);
+    // Create feedback
+    let feedback = document.createElement("div");
+    feedback.id = "feedback";
+    feedback.innerHTML = "";
+    gameboard.appendChild(feedback);
     newQuestion();
+
 }
 function newQuestion(){
-    let question = document.getElementById("question");
+
+    let gameboard = document.getElementById("gameboard");
+    displayFeedback("");
+    document.getElementById("answer").value = "";
     let factors = newFactors();
+    console.log("factors:"+factors.toString());
+    let question = document.getElementById("question");
     question.innerHTML = factors[0]+" * "+factors[1];
     button.addEventListener("click", function(){
         checkAnswer(factors);
     }, false)
-    console.appendChild(question);
-    let feedback = document.createElement("div");
-    feedback.id = "feedback";
-    feedback.innerHTML = "";
-    console.appendChild(feedback);
 }
-    // let wrong = 0;
-    // wrong = askFive();
-    // if (wrong == 0) alert("Perfect");
-    // else{ 
-    //     alert("You got " + wrong + " out of five wrong");
-    //     analyzeMistakes();
-    // }
 
 function checkAnswer(factors) {
     let answer = document.getElementById("answer").value;
@@ -70,7 +76,6 @@ function checkAnswer(factors) {
 function displayFeedback(message){
     let feedback = document.getElementById("feedback");
     feedback.innerHTML = message;
-
 }
 
 /* askFive calls askQuestion() five times, sending the question number as an argument. 
@@ -90,6 +95,7 @@ function newFactors(){
     let a = Math.floor(Math.random()*7)+3;
     let b = Math.floor(Math.random()*7)+3;
     let factors = [a,b];
+    console.log("factors:"+factors.toString());
     return factors;
 }
 
