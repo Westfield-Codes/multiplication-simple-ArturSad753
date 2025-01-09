@@ -14,7 +14,8 @@ function setup(){
  * FLOWCHART: https://lucid.app/lucidchart/5a3164fd-459f-494d-9cae-b4a6be593b13/view
  */
 var mistakes = [];
-
+var maximum = 5;
+var question = 0;
 /* main controls the program. Calling askFive() it provides feedback depending on the 
  * number wrong returned: 0 = "Perfect!" otherwise it says how many wrong. 
  * @param none
@@ -36,6 +37,7 @@ function main() {
     // Create button
     let button = document.getElementById("button");
     button.removeEventListener("click",main);
+    button.addEventListener("click",checkAnswer);
     button.innerHTML = "submit answer";
     gameboard.appendChild(button);
     // Create feedback
@@ -47,8 +49,10 @@ function main() {
 
 }
 function newQuestion(){
-
     let gameboard = document.getElementById("gameboard");
+    button.removeEventListener("click",newQuestion);
+    button.addEventListener("click",checkAnswer);
+    button.innerHTML = "submit answer";
     displayFeedback("");
     document.getElementById("answer").value = "";
     let factors = newFactors();
@@ -62,17 +66,26 @@ function newQuestion(){
 
 function checkAnswer(factors) {
     let answer = document.getElementById("answer").value;
-    if (answer == factors[0]*factors[1]) displayFeedback("that's right");
+    console.log("Answer = "+answer);
+    let product = factors[0]*factors[1];
+    if (answer == product) displayFeedback(product + " is right.");
     else displayFeedback("Wrong answer");
     let button = document.getElementById("button");
     button.innerHTML = "Next question";
     button.removeEventListener("click",function(){
         checkAnswer(factors);
     }, false);
-    button.addEventListener("click",newQuestion);
-    button.style.backgroundColor = "yellow";
-
+    question++;
+    if (question == maximum) {
+        analyzeMistakes();
+    }
+    else {
+        button.addEventListener("click",newQuestion);
+        button.style.backgroundColor = "yellow";
+    }
+    
 }
+   
 function displayFeedback(message){
     let feedback = document.getElementById("feedback");
     feedback.innerHTML = message;
@@ -133,8 +146,9 @@ function analyzeMistakes(){
             errorList+= "factor " + factor + ":" + countMistakes[factor] + "\n";
         }
     }
-    alert("mistakes = " + errorList);
-
+   // alert("mistakes = " + errorList)
+   let factors = document.getElementById("factors");
+   factors.innerHTML = "mistakes = " + errorList;
 
 
 }
