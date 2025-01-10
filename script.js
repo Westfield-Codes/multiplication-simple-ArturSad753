@@ -15,7 +15,7 @@ function setup(){
  */
 var mistakes = [];
 var maximum = 2;
-var question = -1;
+var questions = 1;
 /* main controls the program. Calling askFive() it provides feedback depending on the 
  * number wrong returned: 0 = "Perfect!" otherwise it says how many wrong. 
  * @param none
@@ -64,7 +64,7 @@ function newQuestion(){
         let factors = newFactors();
         console.log("factors:"+factors.toString());
         let question = document.getElementById("question");
-        question.innerHTML = factors[0]+" * "+factors[1];
+        question.innerHTML = "question: "+questions+": \n"+factors[0]+" * "+factors[1];
         button.addEventListener("click", function(){
             checkAnswer(factors);
         }, false)
@@ -76,7 +76,10 @@ function checkAnswer(factors) {
     console.log("Answer = "+answer);
     let product = factors[0]*factors[1];
     if (answer == product) displayFeedback(product + " is right.");
-    else displayFeedback("Wrong answer");
+    else{
+        displayFeedback("Wrong answer");
+        mistakes.push(factors[0],factors[1]);
+    }
     let button = document.getElementById("button");
     button.innerHTML = "Next question";
     button.removeEventListener("click",function(){
@@ -137,20 +140,23 @@ function askQuestion(question){
 }
 
 function analyzeMistakes(){
-    alert("Analize Mistakes");
+    //alert("Analize Mistakes");
+    let textBox = document.getElementById("question");
     let countMistakes = [];
     let errorList = "you made these errors:\n";
     for(let factor = 0; factor < mistakes.length; factor++){
         countMistakes[factor]++;
+
     }
+    console.log("mistakes: "+ mistakes.toString());
+    console.log("count: "+ countMistakes.toString());
     for(let factor = 3; factor < 9; factor++){
         if(countMistakes[factor] > 0){
             errorList+= "factor " + factor + ":" + countMistakes[factor] + "\n";
         }
     }
    // alert("mistakes = " + errorList)
-   let factors = document.getElementById("factors");
-   factors.innerHTML = "mistakes = " + errorList;
+   textBox.innerHTML = "mistakes = " + errorList;
 
 
 }
