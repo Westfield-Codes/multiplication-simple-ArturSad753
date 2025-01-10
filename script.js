@@ -14,8 +14,8 @@ function setup(){
  * FLOWCHART: https://lucid.app/lucidchart/5a3164fd-459f-494d-9cae-b4a6be593b13/view
  */
 var mistakes = [];
-var maximum = 5;
-var question = 0;
+var maximum = 2;
+var question = -1;
 /* main controls the program. Calling askFive() it provides feedback depending on the 
  * number wrong returned: 0 = "Perfect!" otherwise it says how many wrong. 
  * @param none
@@ -50,18 +50,25 @@ function main() {
 }
 function newQuestion(){
     let gameboard = document.getElementById("gameboard");
-    button.removeEventListener("click",newQuestion);
-    button.addEventListener("click",checkAnswer);
-    button.innerHTML = "submit answer";
-    displayFeedback("");
-    document.getElementById("answer").value = "";
-    let factors = newFactors();
-    console.log("factors:"+factors.toString());
-    let question = document.getElementById("question");
-    question.innerHTML = factors[0]+" * "+factors[1];
-    button.addEventListener("click", function(){
-        checkAnswer(factors);
-    }, false)
+    question++;
+    if (question == maximum) {
+        console.log(question+" done.");
+        analyzeMistakes();
+    }
+    else {
+        button.removeEventListener("click",newQuestion);
+        button.addEventListener("click",checkAnswer);
+        button.innerHTML = "submit answer";
+        displayFeedback("");
+        document.getElementById("answer").value = "";
+        let factors = newFactors();
+        console.log("factors:"+factors.toString());
+        let question = document.getElementById("question");
+        question.innerHTML = factors[0]+" * "+factors[1];
+        button.addEventListener("click", function(){
+            checkAnswer(factors);
+        }, false)
+    }
 }
 
 function checkAnswer(factors) {
@@ -75,15 +82,9 @@ function checkAnswer(factors) {
     button.removeEventListener("click",function(){
         checkAnswer(factors);
     }, false);
-    question++;
-    if (question == maximum) {
-        analyzeMistakes();
-    }
-    else {
-        button.addEventListener("click",newQuestion);
-        button.style.backgroundColor = "yellow";
-    }
-    
+    button.addEventListener("click",newQuestion);
+    button.style.backgroundColor = "yellow";
+   
 }
    
 function displayFeedback(message){
@@ -136,6 +137,7 @@ function askQuestion(question){
 }
 
 function analyzeMistakes(){
+    alert("Analize Mistakes");
     let countMistakes = [];
     let errorList = "you made these errors:\n";
     for(let factor = 0; factor < mistakes.length; factor++){
