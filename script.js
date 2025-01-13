@@ -14,6 +14,7 @@ function setup(){
  * FLOWCHART: https://lucid.app/lucidchart/5a3164fd-459f-494d-9cae-b4a6be593b13/view
  */
 var mistakes = [];
+let minimum = 3;
 var maximum = 2;
 var questions = 0;
 /* main controls the program. Calling askFive() it provides feedback depending on the 
@@ -106,8 +107,8 @@ function askFive() {
 }
 
 function newFactors(){
-    let a = Math.floor(Math.random()*7)+3;
-    let b = Math.floor(Math.random()*7)+3;
+    let a = Math.floor(Math.random()*(maximum+1))+minimum;
+    let b = Math.floor(Math.random()*(maximum+1))+minimum;
     let factors = [a,b];
     console.log("factors:"+factors.toString());
     return factors;
@@ -119,8 +120,8 @@ function newFactors(){
  * @return: integer (0 or 1)
  */
 function askQuestion(questions){
-    let a = Math.floor(Math.random()*7)+3;
-    let b = Math.floor(Math.random()*7)+3;
+    let a = Math.floor(Math.random()*(maximum+1))+minimum;
+    let b = Math.floor(Math.random()*(maximum+1))+minimum;
     let product = a*b;
     let equation = "question " + questions + " : " + a + " * " + b + " = ?";
     let answer = prompt(equation);
@@ -143,24 +144,26 @@ function analyzeMistakes(){
     document.getElementById("answer").remove();
     let textBox = document.getElementById("question");
     let countMistakes = [];
-    let errorList = "you made these errors:\n";
-    for(let factor = 0; factor < mistakes.length; factor++){
-        countMistakes[factor]++;
-
-    }
     console.log("mistakes: "+ mistakes.toString());
-    for(let f = 3; f < 9; f++){
-        if(!isNaN(countMistakes[f])){
-            if  (countMistakes[f] > 0){
-                errorList+= "factor " + f + ":" + countMistakes[f] + "\n";
-            }
-        }
-           
+    for (let f = 0; f < mistakes.length; f++ ){
+       if (isNaN(countMistakes[mistakes[f]])){
+            countMistakes[mistakes[f]]=1;
+       }
+       else {
+            countMistakes[mistakes[f]]++;
+       }
     }
     console.log("count: "+ countMistakes.toString());
-
-   // alert("mistakes = " + errorList)
-   textBox.innerHTML = "mistakes = " + errorList;
-
+    let errorList = "you made these errors:\n";
+    for(let f = 0; f < maximum; f++){
+        if (isNaN(countMistakes[f])) {
+            countMistakes[f]=0;
+        }
+        else if (countMistakes[f] > 0) {
+            errorList += "factor " + f + ":" + countMistakes[f] + "\n";
+        }
+    }
+    console.log("error list: "+errorList);
+    textBox.innerHTML = "mistakes = " + errorList;
 
 }
