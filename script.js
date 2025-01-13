@@ -15,7 +15,7 @@ function setup(){
  */
 var mistakes = [];
 var maximum = 2;
-var questions = 1;
+var questions = 0;
 /* main controls the program. Calling askFive() it provides feedback depending on the 
  * number wrong returned: 0 = "Perfect!" otherwise it says how many wrong. 
  * @param none
@@ -23,7 +23,6 @@ var questions = 1;
  */
 function main() {
   
-    //button.addEventListener("click",checkAnswer);
     let gameboard = document.getElementById("gameboard");
     
     // Create Question box
@@ -37,7 +36,6 @@ function main() {
     // Create button
     let button = document.getElementById("button");
     button.removeEventListener("click",main);
-    button.addEventListener("click",checkAnswer);
     button.innerHTML = "submit answer";
     gameboard.appendChild(button);
     // Create feedback
@@ -50,19 +48,18 @@ function main() {
 }
 function newQuestion(){
     let gameboard = document.getElementById("gameboard");
-    question++;
-    if (question == maximum) {
-        console.log(question+" done.");
+    questions++;
+    console.log("question"+questions);
+    if (questions > maximum) {
+        console.log(questions+" maxreached");
         analyzeMistakes();
     }
     else {
         button.removeEventListener("click",newQuestion);
-        button.addEventListener("click",checkAnswer);
         button.innerHTML = "submit answer";
         displayFeedback("");
         document.getElementById("answer").value = "";
         let factors = newFactors();
-        console.log("factors:"+factors.toString());
         let question = document.getElementById("question");
         question.innerHTML = "question: "+questions+": \n"+factors[0]+" * "+factors[1];
         button.addEventListener("click", function(){
@@ -102,8 +99,8 @@ function displayFeedback(message){
  */
 function askFive() {
     let wrong = 0;
-    for (let question = 1; question < 6; question++){
-        wrong+= askQuestion(question);
+    for (let q = 1; q< 6; q++){
+        wrong+= askQuestion(q);
     }
     return wrong;
 }
@@ -121,11 +118,11 @@ function newFactors(){
  * @param: question (integer 1-5)
  * @return: integer (0 or 1)
  */
-function askQuestion(question){
+function askQuestion(questions){
     let a = Math.floor(Math.random()*7)+3;
     let b = Math.floor(Math.random()*7)+3;
     let product = a*b;
-    let equation = "question " + question + " : " + a + " * " + b + " = ?";
+    let equation = "question " + questions + " : " + a + " * " + b + " = ?";
     let answer = prompt(equation);
     if (answer == product){
         alert("Correct");
@@ -141,6 +138,9 @@ function askQuestion(question){
 
 function analyzeMistakes(){
     //alert("Analize Mistakes");
+    document.getElementById("feedback").remove();
+    document.getElementById("button").remove();
+    document.getElementById("answer").remove();
     let textBox = document.getElementById("question");
     let countMistakes = [];
     let errorList = "you made these errors:\n";
@@ -149,12 +149,16 @@ function analyzeMistakes(){
 
     }
     console.log("mistakes: "+ mistakes.toString());
-    console.log("count: "+ countMistakes.toString());
-    for(let factor = 3; factor < 9; factor++){
-        if(countMistakes[factor] > 0){
-            errorList+= "factor " + factor + ":" + countMistakes[factor] + "\n";
+    for(let f = 3; f < 9; f++){
+        if(!isNaN(countMistakes[f])){
+            if  (countMistakes[f] > 0){
+                errorList+= "factor " + f + ":" + countMistakes[f] + "\n";
+            }
         }
+           
     }
+    console.log("count: "+ countMistakes.toString());
+
    // alert("mistakes = " + errorList)
    textBox.innerHTML = "mistakes = " + errorList;
 
