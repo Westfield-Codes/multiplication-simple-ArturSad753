@@ -9,15 +9,13 @@ button:hover {
     border-radius: 5px;
     background: white;
     width: 400px;
-    height: 100px;
     margin: auto;
     text-align: center;
     font-size: 30px;
-    padding-top: 70px;
+    padding:20px;
 }
 #feedback{
     height: auto;
-    padding: 20px;
     margin-top: 20px;
 }
 button {
