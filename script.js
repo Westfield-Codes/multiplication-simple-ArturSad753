@@ -30,15 +30,18 @@ function main() {
     let question = document.createElement("div");
     question.id = "question";
     gameboard.appendChild(question);
+    let inputs = document.createElement("div");
+    inputs.id = "inputs";
+    gameboard.appendChild(inputs);
     // Create Answer input
     let answer = document.createElement("input");
     answer.id = "answer";
-    gameboard.appendChild(answer);
+    inputs.appendChild(answer);
     // Create button
     let button = document.getElementById("button");
     button.removeEventListener("click", main);
     button.innerHTML = "submit answer";
-    gameboard.appendChild(button);
+    inputs.appendChild(button);
     // Create feedback
     let feedback = document.createElement("div");
     feedback.id = "feedback";
@@ -104,23 +107,30 @@ function analyzeMistakes(){
     document.getElementById("button").remove();
     document.getElementById("answer").remove();
     let textBox = document.getElementById("question");
-    let countMistakes = [];
-    for (let f = 0; f < mistakes.length; f++ ){
-       if (isNaN(countMistakes[mistakes[f]])){
-            countMistakes[mistakes[f]]=1;
-       }
-       else {
-            countMistakes[mistakes[f]]++;
-       }
+    if (mistakes.length == 0){ 
+        let errorList = "you made no errors";
+        textBox.innerHTML = errorList;
     }
-    let errorList = "you made these errors:<br>";
-    for (let f = 0; f <= maximum; f++){
-        if (isNaN(countMistakes[f])) {
-            countMistakes[f]=0;
+    else{
+        let countMistakes = [];
+        for (let f = 0; f < mistakes.length; f++ ){
+            if (isNaN(countMistakes[mistakes[f]])){
+                    countMistakes[mistakes[f]]=1;
+            }
+            else {
+                    countMistakes[mistakes[f]]++;
+            }
         }
-        else if (countMistakes[f] > 0) {
-            errorList +=  f + ":" + countMistakes[f] + "<br>";
+        let errorList = "you made these errors:<br>";
+        for (let f = 0; f <= maximum; f++){
+            if (isNaN(countMistakes[f])) {
+                countMistakes[f]=0;
+            }
+            else if (countMistakes[f] > 0) {
+                errorList +=  f + ":" + countMistakes[f] + "<br>";
+            }
         }
+        textBox.innerHTML = errorList;
     }
-    textBox.innerHTML = errorList;
+     
 }

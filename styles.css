@@ -4,7 +4,7 @@ body {
 button:hover {
     background: lightskyblue;
 }
-#question,#feedback {
+#question,#feedback,#inputs {
     border:2px solid black;
     border-radius: 5px;
     background: white;
@@ -26,4 +26,7 @@ button {
     border-radius: 5px;
     background: white;
     font-size: 20px;
+}
+#answer,#button {
+    margin:auto;
 }
