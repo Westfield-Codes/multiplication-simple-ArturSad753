@@ -131,6 +131,22 @@ function analyzeMistakes(){
             }
         }
         textBox.innerHTML = errorList;
+        let button = document.createElement("button");
+        button.innerHTML = "show times table";
+        button.addEventListener("click",createTable);
+        textBox.appendChild(button);
+        
     }
      
+}
+function createTable(){
+    let table = "Times Table for ";
+    let factor = prompt("what times table do you want");
+    table += factor+"<br>";
+    for (let row = minimum; row <= maximum; row++) {
+        table += factor+" * "+row+" = "+(factor * row)+"<br>";
+    }
+    let question = document.getElementById("question");
+    question.innerHTML= table;
+    
 }
