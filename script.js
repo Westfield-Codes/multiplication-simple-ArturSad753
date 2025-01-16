@@ -135,6 +135,7 @@ function analyzeMistakes(){
         button.innerHTML = "show times table";
         button.addEventListener("click",createTable);
         textBox.appendChild(button);
+
         
     }
      
@@ -147,6 +148,9 @@ function createTable(){
         table += factor+" * "+row+" = "+(factor * row)+"<br>";
     }
     let question = document.getElementById("question");
-    question.innerHTML= table;
-    
+    question.innerHTML = table;
+    let playagain = document.createElement("button");
+    playagain.innerHTML = "playagain"
+    let inputs = document.getElementById("inputs");
+    inputs.appendChild = playagain;
 }
