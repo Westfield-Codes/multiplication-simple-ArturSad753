@@ -150,7 +150,12 @@ function createTable(){
     let question = document.getElementById("question");
     question.innerHTML = table;
     let playagain = document.createElement("button");
-    playagain.innerHTML = "playagain"
+    playagain.innerHTML = "play again";
+    playagain.addEventListener("click",newGame);
     let inputs = document.getElementById("inputs");
-    inputs.appendChild = playagain;
+    inputs.appendChild(playagain);
+}
+
+function newGame(){
+    window.location.reload();
 }
