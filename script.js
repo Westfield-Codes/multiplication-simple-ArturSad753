@@ -110,6 +110,11 @@ function analyzeMistakes(){
     if (mistakes.length == 0){ 
         let errorList = "you made no errors";
         textBox.innerHTML = errorList;
+        let playagain = document.createElement("button");
+        playagain.innerHTML = "play again";
+        playagain.addEventListener("click",newGame);
+        let inputs = document.getElementById("inputs");
+        inputs.appendChild(playagain);
     }
     else{
         let countMistakes = [];
